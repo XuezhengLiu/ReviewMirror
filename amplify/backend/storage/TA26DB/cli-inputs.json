@@ -1,0 +1,10 @@
+{
+  "resourceName": "TA26DB",
+  "tableName": "Reviews",
+  "partitionKey": {
+    "fieldName": "Rbody",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

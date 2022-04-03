@@ -10,6 +10,28 @@
       "StackName": "amplify-fakereview-dev-135506",
       "StackId": "arn:aws:cloudformation:us-east-1:805674686192:stack/amplify-fakereview-dev-135506/76e81240-b249-11ec-a1d5-0e4dff760283",
       "AmplifyAppId": "dkynjhqrfo743"
+    },
+    "categories": {
+      "function": {
+        "fakereviewc73483a1": {
+          "deploymentBucketName": "amplify-fakereview-dev-135506-deployment",
+          "s3Key": "amplify-builds/fakereviewc73483a1-6a54724766364b646c41-build.zip"
+        },
+        "fakereview38f90a11": {
+          "deploymentBucketName": "amplify-fakereview-dev-135506-deployment",
+          "s3Key": "amplify-builds/fakereview38f90a11-6b664431307a71644573-build.zip"
+        },
+        "fakereview7714af25": {
+          "deploymentBucketName": "amplify-fakereview-dev-135506-deployment",
+          "s3Key": "amplify-builds/fakereview7714af25-30575858484452354479-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dkynjhqrfo743",
+          "type": "manual"
+        }
+      }
     }
   }
 }
