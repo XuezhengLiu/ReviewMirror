@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import Home from './Home/Home'
+import Analysis from './Analysis/Analysis'
+import Inforgraphic from './Infographic/Infographic'
 
-function App() {
+import { Layout, Menu } from 'antd'
+
+
+import './App.css'
+import { Amplify } from 'aws-amplify'
+import awsExports from './aws-exports'
+Amplify.configure(awsExports)
+
+
+
+function App () {
+  const { Header, Content } = Layout
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Layout style={{ height: '100%' }}>
+        <Header className="header">
+          <div className="logo" ></div>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys=''>
+            <Menu.Item key="Home"><Link to='/Home'>Home</Link></Menu.Item>
+            <Menu.Item key="Analysis"><Link to='/Analysis'>Analysis</Link></Menu.Item>
+            <Menu.Item key="Inforgraphic"><Link to='/Inforgraphic'>Inforgraphic</Link></Menu.Item>
+          </Menu>
+        </Header>
+        <Layout>
+
+          <Layout style={{ padding: '0 5px' }}>
+            <Content
+              className="site-layout-background"
+              style={{
+                padding: 0,
+                margin: 0,
+                minHeight: 280,
+              }}
+            >
+              <Routes>
+                <Route path='/Home' element={<Home />}></Route>
+                <Route path='/Analysis' element={<Analysis />}></Route>
+                <Route path='/Inforgraphic' element={<Inforgraphic />}></Route>
+              </Routes>
+            </Content>
+          </Layout>
+        </Layout>
+      </Layout>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+
+
+export default App

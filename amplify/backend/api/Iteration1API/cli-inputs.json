@@ -1,23 +1,16 @@
 {
   "version": 1,
   "paths": {
-    "/information": {
-      "name": "/information",
+    "/Analysis": {
+      "name": "/Analysis",
       "lambdaFunction": "fakereview38f90a11",
       "permissions": {
         "setting": "open"
       }
     },
-    "/form": {
-      "name": "/form",
+    "/Infographic": {
+      "name": "/Infographic",
       "lambdaFunction": "fakereviewc73483a1",
-      "permissions": {
-        "setting": "open"
-      }
-    },
-    "/analysis": {
-      "name": "/analysis",
-      "lambdaFunction": "fakereview7714af25",
       "permissions": {
         "setting": "open"
       }

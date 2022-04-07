@@ -30,7 +30,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "api": {
-        "TA26API": {
+        "Iteration1API": {
             "RootUrl": "string",
             "ApiName": "string",
             "ApiId": "string"
