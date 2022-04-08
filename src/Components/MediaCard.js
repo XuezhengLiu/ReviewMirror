@@ -9,13 +9,10 @@ export default function MediaCard (props) {
   const { img, title, introduction, type, link } = props
   return (
     <Card sx={{ maxWidth: 345 }} style={{ width: '280px', height: '350px', margin: '5px', border: '1px solid #ccc', boxShadow: '0px 0px 6px #ccc' }}>
-      <img src={require('./Ranni.jpg')} alt='' style={{ width: '280px', height: '150px' }} />
+      <img src={require('./' + img)} alt='' style={{ width: '280px', height: '150px' }} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {introduction}
         </Typography>
       </CardContent>
       <CardActions>
