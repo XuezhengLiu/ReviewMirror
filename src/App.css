@@ -39,17 +39,17 @@
   }
 }
 
-.logo {
+/* .logo {
   float: left;
   width: 120px;
   height: 31px;
   margin: 16px 24px 16px 0;
-  background: rgba(255, 255, 255, 0.3) url('./Components/logo.jpg');
+  background: rgba(255, 255, 255, 0.3); /* url('./Components/logo.jpg') 
   background-repeat: no-repeat;
   background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
-}
+} */
 
 .ant-row-rtl #components-layout-demo-top-side-2 .logo {
   float: right;

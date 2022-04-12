@@ -5,9 +5,11 @@ import Inforgraphic from './Infographic/Infographic'
 import Article from "./Infographic/Atricle"
 import Video from "./Infographic/Video"
 import Tips from "./Infographic/Tips"
-import { Layout, Menu } from 'antd'
+import { Layout, Menu, Dropdown, Button } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
 
 
+import "./css/NavBar.css"
 import './App.css'
 import { Amplify } from 'aws-amplify'
 import awsExports from './aws-exports'
@@ -16,21 +18,61 @@ Amplify.configure(awsExports)
 
 
 function App () {
-  const { Header, Content } = Layout
+  const { Content } = Layout
+
+  const menuForAnalysis = (
+    <Menu>
+      <Menu.Item key="0">
+        <Link to='/Analysis/*'>Analyse Review</Link>
+      </Menu.Item>
+      <Menu.Divider />
+    </Menu>
+  )
+
+  const menuForInformation = (
+    <Menu>
+      <Menu.Item key="0">
+        <Link to='/Infographic/Articles'>Articles</Link>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="1">
+        <Link to='/Infographic/Videos'>Videos</Link>
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item key="1">
+        <Link to='/Infographic/Tips'>Tips</Link>
+      </Menu.Item>
+    </Menu>
+  )
+
   return (
     <BrowserRouter>
       <Layout style={{ height: '100%' }}>
-        <Header className="header">
+        {/* <Header className="header">
           <div className="logo" ></div>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys=''>
             <Menu.Item key="Home"><Link to='/Home/*'>Home</Link></Menu.Item>
             <Menu.Item key="Analysis"><Link to='/Analysis/*'>Analysis</Link></Menu.Item>
             <Menu.Item key="Inforgraphic"><Link to='/Infographic/*'>Information</Link></Menu.Item>
           </Menu>
-        </Header>
+        </Header> */}
+        <div className="navbar flex-row-vcenter-hsb" style={{ width: '100%', background: '#000', color: '#FFF' }}>
+          <div className="logo flex-row-vcenter-hsb">
+            <img src={require('./Components/Eric logo 4.6.png')} alt='' style={{ width: '120px', height: '30px' }} />
+          </div>
+          <div className="frame-321 flex-row-vcenter-hsb">
+            <Link to='/Home/*'><a style={{ color: 'white' }}>Home</a></Link>
+            <Dropdown overlay={menuForAnalysis} placement="bottom" arrow={{ pointAtCenter: true }}>
+              <a style={{ color: 'white' }}>Analysis</a>
+            </Dropdown>
+            <Dropdown overlay={menuForInformation} placement="bottomRight" arrow={{ pointAtCenter: true }}>
+              <a style={{ color: 'white' }}>Information</a>
+            </Dropdown>
+          </div>
+        </div>
         <Layout>
 
-          <Layout style={{ padding: '0 5px', height: '100%' }}>
+          <Layout style={{ height: '100%' }}>
             <Content
               className="site-layout-background"
               style={{
@@ -53,6 +95,7 @@ function App () {
               </Routes>
             </Content>
           </Layout>
+
         </Layout>
       </Layout>
     </BrowserRouter>

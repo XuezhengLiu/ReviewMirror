@@ -1,0 +1,51 @@
+/* Navbar */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+
+p {
+  margin: 0;
+}
+
+.flex-row-vcenter-hsb {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar {
+  padding: 23px 31px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 1);
+  width: 1440px;
+  height: 72px;
+}
+
+.logo {
+  padding: 0px 0px 0px 23px;
+  box-sizing: border-box;
+  width: 69px;
+  height: 100%;
+}
+
+.star-1 {
+  width: 18px;
+  height: 18px;
+}
+
+.frame-321 {
+  padding: 0px 23px;
+  box-sizing: border-box;
+  width: 339px;
+  height: 100%;
+}
+
+.txt-1014 {
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0.16px;
+  color: rgba(0, 0, 0, 1);
+  word-wrap: break-word;
+}
