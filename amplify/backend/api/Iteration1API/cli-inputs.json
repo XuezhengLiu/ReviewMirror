@@ -14,6 +14,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/DB": {
+      "name": "/DB",
+      "lambdaFunction": "fakereview38f90a11",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

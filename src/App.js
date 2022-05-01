@@ -1,4 +1,3 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Home from './Home/Home'
 import Analysis from './Analysis/Analysis'
 import ReviewAnalyse from './Analysis/ReviewAnalyse'
@@ -8,14 +7,16 @@ import Inforgraphic from './Infographic/Infographic'
 import Article from "./Infographic/Atricle"
 import Video from "./Infographic/Video"
 import Tips from "./Infographic/Tips"
-import { Layout, Menu, Dropdown } from 'antd'
+import SearchBar from './Components/searchBar'
 import { API } from 'aws-amplify'
+import { Layout, Menu, Dropdown } from 'antd'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
+import { Amplify } from 'aws-amplify'
+import awsExports from './aws-exports'
 
 import "./css/NavBar.css"
 import './App.css'
-import { Amplify } from 'aws-amplify'
-import awsExports from './aws-exports'
 Amplify.configure(awsExports)
 
 
@@ -23,7 +24,7 @@ Amplify.configure(awsExports)
 function App () {
   const { Content } = Layout
 
-  const GetResult = async () => {
+  const ServerRun = async () => {
 
     const params = { 'review': 'Good Product' }
     console.log(params)
@@ -32,9 +33,11 @@ function App () {
         console.log('Running')
       })
       .catch(error => {
-        GetResult()
+        ServerRun()
       })
   }
+
+
 
   const menuForAnalysis = (
     <Menu>
@@ -42,12 +45,12 @@ function App () {
         <Link to='/Analysis/ReviewAnalyse'>Analyse Review</Link>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="1">
+      {/* <Menu.Item key="1">
         <Link to='/Analysis/ItemAnalyse'>Analyse Item</Link>
-      </Menu.Item>
-      <Menu.Item key="2">
+      </Menu.Item> */}
+      {/* <Menu.Item key="2">
         <Link to='/Analysis/ApiTest'>ApiTest</Link>
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   )
 
@@ -69,18 +72,13 @@ function App () {
 
   return (
     <BrowserRouter>
-      <Layout style={{ height: '100%' }} onLoad={GetResult}>
-        {/* <Header className="header">
-          <div className="logo" ></div>
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys=''>
-            <Menu.Item key="Home"><Link to='/Home/*'>Home</Link></Menu.Item>
-            <Menu.Item key="Analysis"><Link to='/Analysis/*'>Analysis</Link></Menu.Item>
-            <Menu.Item key="Inforgraphic"><Link to='/Infographic/*'>Information</Link></Menu.Item>
-          </Menu>
-        </Header> */}
+      <Layout style={{ height: '100%' }} onLoad={ServerRun}>
         <div className="navbar flex-row-vcenter-hsb" style={{ width: '100%', background: '#000', color: '#FFF' }}>
           <div className="logo flex-row-vcenter-hsb">
             <img src={require('./Components/Eric logo 4.6.png')} alt='' style={{ width: '120px', height: '30px' }} />
+          </div>
+          <div className='flex-row-vcenter-hsb'>
+            <SearchBar></SearchBar>
           </div>
           <div className="frame-321 flex-row-vcenter-hsb">
             <Link to='/Home/*'><a style={{ color: 'white' }}>Home</a></Link>
