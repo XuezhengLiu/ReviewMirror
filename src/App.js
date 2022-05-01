@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Home from './Home/Home'
 import Analysis from './Analysis/Analysis'
+import ReviewAnalyse from './Analysis/ReviewAnalyse'
+import ItemAnalyse from './Analysis/ItemAnalyse'
+import ApiTest from './Analysis/test'
 import Inforgraphic from './Infographic/Infographic'
 import Article from "./Infographic/Atricle"
 import Video from "./Infographic/Video"
 import Tips from "./Infographic/Tips"
-import { Layout, Menu, Dropdown, Button } from 'antd'
-import { DownOutlined } from '@ant-design/icons'
+import { Layout, Menu, Dropdown } from 'antd'
+import { API } from 'aws-amplify'
 
 
 import "./css/NavBar.css"
@@ -20,12 +23,31 @@ Amplify.configure(awsExports)
 function App () {
   const { Content } = Layout
 
+  const GetResult = async () => {
+
+    const params = { 'review': 'Good Product' }
+    console.log(params)
+    await API.get('Iteration1API', '/Analysis', { queryStringParameters: params })
+      .then(response => {
+        console.log('Running')
+      })
+      .catch(error => {
+        GetResult()
+      })
+  }
+
   const menuForAnalysis = (
     <Menu>
       <Menu.Item key="0">
-        <Link to='/Analysis/*'>Analyse Review</Link>
+        <Link to='/Analysis/ReviewAnalyse'>Analyse Review</Link>
       </Menu.Item>
       <Menu.Divider />
+      <Menu.Item key="1">
+        <Link to='/Analysis/ItemAnalyse'>Analyse Item</Link>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Link to='/Analysis/ApiTest'>ApiTest</Link>
+      </Menu.Item>
     </Menu>
   )
 
@@ -47,7 +69,7 @@ function App () {
 
   return (
     <BrowserRouter>
-      <Layout style={{ height: '100%' }}>
+      <Layout style={{ height: '100%' }} onLoad={GetResult}>
         {/* <Header className="header">
           <div className="logo" ></div>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys=''>
@@ -85,7 +107,12 @@ function App () {
               <Routes>
                 <Route path='' element={<Home />}></Route>
                 <Route path='/Home/*' element={<Home />}></Route>
-                <Route path='/Analysis/*' element={<Analysis />}></Route>
+                <Route path='/Analysis/*' element={<Analysis />}>
+                  <Route path='*' element={<Analysis />}></Route>
+                  <Route path='ReviewAnalyse' element={<ReviewAnalyse />}></Route>
+                  <Route path='ItemAnalyse' element={<ItemAnalyse />}></Route>
+                  <Route path='ApiTest' element={<ApiTest />}></Route>
+                </Route>
                 <Route path='/Infographic/*' element={<Inforgraphic />}>
                   <Route path='*' element={<Article />}></Route>
                   <Route path='Articles' element={<Article />}></Route>
