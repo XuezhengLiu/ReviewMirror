@@ -1,43 +1,47 @@
 import { useState } from 'react'
 import { API } from 'aws-amplify'
-import { Input } from 'antd'
-import { Button } from 'antd'
-
+import { notification, Button, message, Input } from 'antd'
 import './Analysis.css'
 
 
 function ReviewAnalyse () {
   const [review, setReview] = useState('')
-  const [result, setResult] = useState('')
-  const [analysePogress, setAanalysePogress] = useState('')
   const { TextArea } = Input
+
+  const key = 'updatable'
+
+  var Aresult = ''
 
   const GetResult = async () => {
 
-    setAanalysePogress('loading')
+    message.loading({ content: 'Analysing...', key, duration: 0 })
     const params = { 'review': review }
     console.log(params)
     await API.get('Iteration1API', '/Analysis', { queryStringParameters: params })
       .then(response => {
-        setResult(response.result)
-        setAanalysePogress('loaded')
+        Aresult = response.result
+        message.success({ content: 'Success!', key, duration: 2 })
+        openNotification('topRight')
       })
       .catch(error => {
         GetResult()
       })
   }
 
-  const AnalyseResult = () => {
-    switch (analysePogress) {
-      case 'loading':
-        return <h2>Analysing</h2>
-      case 'loaded':
-        return <h2>{result}</h2>
-      case 'noResult':
-        return <h2>Result not found</h2>
-      default:
-        break
-    }
+  const openNotification = placement => {
+    const key = `open${Date.now()}`
+    const btn = (
+      <Button type="primary" size="small" onClick={() => notification.close(key)}>
+        Ok!
+      </Button>
+    )
+    notification.open({
+      description: Aresult,
+      btn,
+      key,
+      placement,
+      duration: 0
+    })
   }
 
   return (
@@ -48,7 +52,7 @@ function ReviewAnalyse () {
           <p className="txt-547 flex-hcenter">Find out if this review was human written or computer generated</p>
           <div className="_-04-textarea-01-textarea flex-col-hcenter-vstart">
             <div>
-              <TextArea rows={4} placeholder="Paste Your Review Here!"
+              <TextArea rows={4} maxLength={512} placeholder="Paste Your Review Here!"
                 style={{ height: '200px', width: '400px' }}
                 onBlur={e => setReview(e.target.value)}
               />
@@ -57,7 +61,6 @@ function ReviewAnalyse () {
           <div>
             <Button type="primary" onClick={GetResult}>Submit</Button>
           </div>
-          <div>{AnalyseResult()}</div>
         </div>
       </div>
 

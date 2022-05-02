@@ -17,12 +17,12 @@ function ItemAnalyse () {
     <>
       <div className='Item'>
         <div className='ItemImg'>
-          <Image
+          <a href={location.state.url} target='_blank' rel="noreferrer"><Image
             width={'75%'}
             src={location.state.mainImage}
             preview={false}
             style={imgStyle}
-          />
+          /></a>
         </div>
         <div className='ItemInfo'>
           <div className='title'>
@@ -48,7 +48,7 @@ function ItemAnalyse () {
             <h5>Original Rating</h5>
           </Tooltip>
           <div style={{ marginTop: '20px' }}>
-            <Tooltip title="Recalculte the rating">
+            <Tooltip title={location.state.HowItWorks}>
               <span style={{ fontFamily: 'Poppins, sans-serif' }}>How it works   <QuestionCircleOutlined /></span>
             </Tooltip>
           </div>
@@ -59,15 +59,17 @@ function ItemAnalyse () {
       <div className='Result'>
         <div className='AResult1'>
           <div className='sencondTitle'>
-            <h1>High Frequency Words</h1>
+            <h1>High Frequency Words   </h1>
           </div>
           <div className='wordCloud'>
-            <Image
-              width={'60%'}
-              src={location.state.MFO}
-              preview={true}
-              style={imgStyle}
-            />
+            <Tooltip title="This chart shows the most frequency words that used for describing the product from its reviews.">
+              <Image
+                width={'60%'}
+                src={location.state.MFO}
+                preview={true}
+                style={imgStyle}
+              />
+            </Tooltip>
           </div>
         </div>
         <div className='AResult2'>
@@ -75,12 +77,14 @@ function ItemAnalyse () {
             <h1>Review Sentiment</h1>
           </div>
           <div className='wordCloud'>
-            <Image
-              width={'60%'}
-              src={location.state.PosNeg}
-              preview={true}
-              style={imgStyle}
-            />
+            <Tooltip title="This chart shows the most frequently used positive and negative words in product reviews. Help you to estimate other customers satisfaction.">
+              <Image
+                width={'60%'}
+                src={location.state.PosNeg}
+                preview={true}
+                style={imgStyle}
+              />
+            </Tooltip>
           </div>
         </div>
       </div>

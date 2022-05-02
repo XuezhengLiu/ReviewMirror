@@ -21,7 +21,7 @@ function Analysis () {
       >
         <Outlet />
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Review Mirror ©2022 Created by TA26</Footer>
+      <Footer style={{ textAlign: 'center' }}>Review Mirror ©2022 Created by SLYNG</Footer>
     </Layout>
   )
 }

@@ -44,7 +44,7 @@ function App () {
       <Menu.Item key="0">
         <Link to='/Analysis/ReviewAnalyse'>Analyse Review</Link>
       </Menu.Item>
-      <Menu.Divider />
+      {/* <Menu.Divider /> */}
       {/* <Menu.Item key="1">
         <Link to='/Analysis/ItemAnalyse'>Analyse Item</Link>
       </Menu.Item> */}
@@ -64,7 +64,7 @@ function App () {
         <Link to='/Infographic/Videos'>Videos</Link>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="1">
+      <Menu.Item key="2">
         <Link to='/Infographic/Tips'>Tips</Link>
       </Menu.Item>
     </Menu>
