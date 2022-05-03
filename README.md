@@ -14,6 +14,18 @@ https://www.reviewmirror.ga
 2. Information: you can get more knowledge about how to identify fake reviews at information page
 3. Offer a summary of product reviews via a wordcloud when the user enters the product's link from the Amazon.AU website. Additionally, we provide a wordcloud that displays the most frequently used positive and negative words in product reviews, giving users a sense of the product's pros and cons based on consumer feedback. Moreover, our Ml model will filter out any possible phoney reviews for the provided product link and deliver a recalculated star rating after the bogus reviews are filtered out.
 
+# Back end lambda function in aws
+
+[analysis_handler.py](https://github.com/XuezhengLiu/ReviewMirror/blob/master/server/analysis_handler.py)
+
+[db_handler.py](https://github.com/XuezhengLiu/ReviewMirror/blob/master/server/db_handler.py)
+
+# python dependencies
+
+[requirements.txt](https://github.com/XuezhengLiu/ReviewMirror/blob/master/Python/requirements.txt)
+
+You can install dependencies by running **pip install -r requirements.txt**
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -47,15 +59,3 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# Back end lambda function in aws
-
-[analysis_handler.py](https://github.com/XuezhengLiu/ReviewMirror/blob/master/server/analysis_handler.py)
-
-[db_handler.py](https://github.com/XuezhengLiu/ReviewMirror/blob/master/server/db_handler.py)
-
-# python dependencies
-
-[requirements.txt](https://github.com/XuezhengLiu/ReviewMirror/blob/master/Python/requirements.txt)
-
-You can find the requirements.txt in the python folder that helps you install the packages
