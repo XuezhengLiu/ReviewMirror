@@ -63,6 +63,7 @@ function SearchBar () {
               reliabilityBGC: reliabilityBGC,
               MFO: response.S3_MFO_url,
               PosNeg: response.S3_PosNeg_url,
+              recommendation: recommendation,
               HowItWorks: "We have filtered out suspected unreliable star ratings and re-calculated the first 100 reviews for this product. The Adjusted Rating is the re-calculated result by our website.",
             }
           }, { replace: true })
@@ -161,9 +162,11 @@ function SearchBar () {
               }
 
               reviewTitle = reviewTitle.replaceAll("'", " ")
+              reviewTitle = reviewTitle.replaceAll(/[\\]/g, " ")
               reviewTitle = reviewTitle.replaceAll('"', ' ')
               reviewBody = reviewBody.replaceAll("'", " ")
               reviewBody = reviewBody.replaceAll('"', ' ')
+              reviewBody = reviewBody.replaceAll(/[\\]/g, ' ')
 
               var reviewInfoSingle = '{ "reviewId": "' + reviewId
                 + '", "reviewTitle": "' + reviewTitle
@@ -226,43 +229,53 @@ function SearchBar () {
             recommendation = 'Low reliability!\nPlease distinguish reviews carefully'
           }
           openNotification('topRight')
+          gotoItemAnalyse()
+          sendBack(value)
         })
         .catch(error => {
-          message.error({ content: 'Failed!', key, duration: 2 })
-          console.log(error)
-          // API.post('Iteration1API', '/Analysis', { body: param })
-          //   .then(response => {
-          //     console.log(response)
-          //     message.success({ content: 'Loaded!', key, duration: 2 })
+          // message.error({ content: 'Failed!', key, duration: 2 })
 
-          //     MFO = base64Header + response.MFO
-          //     PosNeg = base64Header + response.PosNeg
-          //     newStarRating = response.newStarRating
-          //     previousRating = response.previousRating
-          //     reviewReliability = response.review_reliability + "%"
-          //     console.log(typeof (response.review_reliability))
-          //     if (response.review_reliability >= 80) {
-          //       reliabilityBGC = '#C3E5AE'
-          //       recommendation = 'High reliability!\nYou can rely on reviews to make decisions'
-          //     } else if (49 < response.review_reliability && response.review_reliability < 80) {
-          //       reliabilityBGC = '#F1E1A6'
-          //       recommendation = 'Moderate reliability!\nMost of the reviews are reliable, some may be fake reviews'
-          //     } else {
-          //       reliabilityBGC = '#F4BBBB'
-          //       recommendation = 'Low reliability!\nPlease distinguish reviews carefully'
-          //     }
-          //     openNotification('topRight')
-          // })
+          console.log(error)
+          console.log('send again')
+          sendAgain(param)
+          gotoItemAnalyse()
+          sendBack(value)
         })
 
-      gotoItemAnalyse()
-      sendBack(value)
+
+
     }
     else {
       message.success({ content: 'Loaded!', key, duration: 2 })
       gotoItemAnalyseNER()
       openNotificationNER('topRight')
     }
+  }
+
+  const sendAgain = async (param) => {
+    await API.post('Iteration1API', '/Analysis', { body: param })
+      .then(response => {
+        console.log(response)
+        message.success({ content: 'Loaded!', key, duration: 2 })
+
+        MFO = base64Header + response.MFO
+        PosNeg = base64Header + response.PosNeg
+        newStarRating = response.newStarRating
+        previousRating = response.previousRating
+        reviewReliability = response.review_reliability + "%"
+        console.log(typeof (response.review_reliability))
+        if (response.review_reliability >= 80) {
+          reliabilityBGC = '#C3E5AE'
+          recommendation = 'High reliability!\nYou can rely on reviews to make decisions'
+        } else if (49 < response.review_reliability && response.review_reliability < 80) {
+          reliabilityBGC = '#F1E1A6'
+          recommendation = 'Moderate reliability!\nMost of the reviews are reliable, some may be fake reviews'
+        } else {
+          reliabilityBGC = '#F4BBBB'
+          recommendation = 'Low reliability!\nPlease distinguish reviews carefully'
+        }
+        openNotification('topRight')
+      })
   }
 
   const openNotification = placement => {
@@ -343,6 +356,7 @@ function SearchBar () {
         reliabilityBGC: reliabilityBGC,
         MFO: MFO,
         PosNeg: PosNeg,
+        recommendation: recommendation,
         HowItWorks: "We have filtered out suspected unreliable star ratings and re-calculated the first 100 reviews for this product. The Adjusted Rating is the re-calculated result by our website.",
       }
     }, { replace: true })
