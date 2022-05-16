@@ -22,7 +22,8 @@ https://www.reviewmirror.ga
 
 # python dependencies
 
-[requirements.txt](https://github.com/XuezhengLiu/ReviewMirror/blob/master/Python/requirements.txt)
+[requirements.txt](https://github.com/XuezhengLiu/ReviewMirror/blob/master/server/requirements.txt)
+
 
 You can install dependencies by running **pip install -r requirements.txt**
 
