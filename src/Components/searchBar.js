@@ -1,22 +1,62 @@
-import { notification, Button, message, Input } from 'antd'
+import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
+import InputBase from '@mui/material/InputBase'
+import Divider from '@mui/material/Divider'
+import Stack from '@mui/material/Stack'
+import Snackbar from '@mui/material/Snackbar'
+import MuiAlert from '@mui/material/Alert'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Slide from '@mui/material/Slide'
+
 import { API } from 'aws-amplify'
+import { useState } from 'react'
+
+const Transition = React.forwardRef(function Transition (props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />
+})
+
+const Alert = React.forwardRef(function Alert (props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+})
 
 function SearchBar () {
+  const [purl, setPUrl] = useState('')
+  const [open1, setOpen1] = useState(false)
+  const [notiOpen, setNotiOpen] = useState(false)
+  const [failOpen, setFailOpen] = useState(false)
+  const [loadingOpen, setLoadingOpen] = useState(false)
+  const [fianlRem, setFinalRem] = useState('')
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    setFailOpen(false)
+  }
+
+  const handleModalClose = () => {
+    setOpen1(false)
+  }
 
   const navigate = useNavigate()
-  const { Search } = Input
 
   const base64Header = 'data:image/jpeg;base64,'
-  const key = 'updatable'
   var recommendation = ''
   var array1 = []
+  var reviewsFiltered = []
   var reviewInfo = []
-
   var ProductRating = 0
+  var url = ''
   var title = ''
   var mainImage = ''
-  var url = ''
   var reviewsTotal = ''
   var searchAlias = ''
   var newStarRating = 0
@@ -26,11 +66,12 @@ function SearchBar () {
   var MFO = ''
   var PosNeg = ''
 
-
   const axios = require('axios')
-  const queryStart = async (value) => {
-    const params = { 'asin': findAsin(value) }
-    message.loading({ content: 'Loading...', key, duration: 0 })
+
+
+  const queryStart = async () => {
+    const params = { 'asin': findAsin(purl) }
+    setNotiOpen(true)
     await API.get('Iteration1API', '/DB', { queryStringParameters: params })
       .then(response => {
         var timestamp = Date.parse(new Date())
@@ -49,13 +90,12 @@ function SearchBar () {
             reliabilityBGC = '#F4BBBB'
             recommendation = 'Low reliability!\nPlease distinguish reviews carefully'
           }
-
-          navigate('/Analysis/ItemAnalyse', {
+          navigate('/PAnalyseResult', {
             state: {
               title: response.title,
               mainImage: response.mainImage,
               url: response.amazon_url,
-              reviewsTotal: 'Total Reviews: ' + response.reviewsTotal,
+              reviewsTotal: 'Total Ratings: ' + response.reviewsTotal,
               searchAlias: 'Categories: ' + response.searchAlias,
               newStarRating: parseFloat(response.newStarRating),
               previousRating: parseFloat(response.previousRating),
@@ -64,18 +104,21 @@ function SearchBar () {
               MFO: response.S3_MFO_url,
               PosNeg: response.S3_PosNeg_url,
               recommendation: recommendation,
-              HowItWorks: "We have filtered out suspected unreliable star ratings and re-calculated the first 100 reviews for this product. The Adjusted Rating is the re-calculated result by our website.",
+              HowItWorks: "We have filtered out suspected unreliable star ratings and re-calculated the most recent 100 reviews for this product. The Adjusted Rating is the re-calculated result by our website.",
             }
           }, { replace: true })
-          openNotification('topRight')
-          message.success({ content: 'Loaded!', key, duration: 2 })
+          setFinalRem(recommendation)
+          setOpen1(true)
+          setNotiOpen(false)
         }
         else {
-          onSearch(value)
+          onSearch(purl)
         }
         console.log(parseInt(Math.abs(timestamp - timestamp2) / 1000 / 60 / 60 / 24))
       })
       .catch(error => {
+
+
         console.log(error)
       })
   }
@@ -86,33 +129,42 @@ function SearchBar () {
       type: "product",
       url: value
     }
-    message.loading({ content: 'Loading...', key, duration: 0 })
+    // message.loading({ content: 'Data Collecting...', key, duration: 0 })
 
     await axios.get('https://api.rainforestapi.com/request', { params })
       .then(response => {
+        console.log(response)
         if (response.data["request_info"]["success"] === true) {
           // print the JSON response from Rainforest API
           title = response.data['product']['title']
-          mainImage = response.data['product']['main_image']['link']
+          if (typeof (response.data['product']['main_image']) !== 'undefined') {
+            mainImage = response.data['product']['main_image']['link']
+          }
+
           url = response.data['request_parameters']['url']
-          reviewsTotal = 'Total Reviews: ' + response.data['product']['reviews_total']
+          reviewsTotal = 'Total Ratings: ' + response.data['product']['reviews_total']
           searchAlias = 'Categories: ' + response.data['product']['search_alias']['title']
           ProductRating = response.data['product']['rating']
           GetResult(value)
         }
         else {
-          message.error({ content: 'Failed!', key, duration: 2 })
-          openNotificationFL('topRight')
+          // message.error({ content: 'Failed!', key, duration: 2 })
+          // openNotificationFL('topRight')
+          setNotiOpen(false)
+          setFailOpen(true)
         }
       }).catch(error => {
-        message.error({ content: 'Failed!', key, duration: 2 })
-        openNotificationFL('topRight')
+        // message.error({ content: 'Failed!', key, duration: 2 })
+        // openNotificationFL('topRight')
+        setNotiOpen(false)
+        setFailOpen(true)
         console.log(error)
 
       })
   }
 
   const GetResult = async (value) => {
+    // message.loading({ content: 'Analysing...', key, duration: 0 })
 
     for (let i = 1; i < 11; i++) {
       var params = {
@@ -126,12 +178,17 @@ function SearchBar () {
         language: "en_GB",
         page: i.toString()
       }
+
       await axios.get('https://api.rainforestapi.com/request', { params })
+        //eslint-disable-next-line no-loop-func
         .then(response => {
           if (response.data['reviews'].length === 10) {
             var asin = response.data["request_parameters"]["asin"]
             var rating = response.data['summary']['rating']
             var reviewsTotal = response.data['summary']['reviews_total']
+            if (mainImage === '') {
+              mainImage = response.data['product']['image']
+            }
             for (let j = 0; j < 10; j++) {
               var reviewId = response.data['reviews'][j]['id']
               var reviewTitle = response.data['reviews'][j]['title']
@@ -176,6 +233,7 @@ function SearchBar () {
                 + '", "reviewPID": "' + reviewPID + '" }'
 
               array1[j] = ' "' + j + '" :' + reviewInfoSingle
+              reviewsFiltered[i - 1] = response.data['summary']['reviews_total']
             }
           }
           else {
@@ -207,10 +265,13 @@ function SearchBar () {
         "review10": reviewInfo[9]
       }
       console.log(param)
+      setNotiOpen(false)
+      setLoadingOpen(true)
       await API.post('Iteration1API', '/Analysis', { body: param })
         .then(response => {
           console.log(response)
-          message.success({ content: 'Loaded!', key, duration: 2 })
+
+          setLoadingOpen(false)
 
           MFO = base64Header + response.MFO
           PosNeg = base64Header + response.PosNeg
@@ -228,12 +289,13 @@ function SearchBar () {
             reliabilityBGC = '#F4BBBB'
             recommendation = 'Low reliability!\nPlease distinguish reviews carefully'
           }
-          openNotification('topRight')
+          // openNotification('topRight')
           gotoItemAnalyse()
+          // message.success({ content: 'Loaded!', key, duration: 2 })
+          setNotiOpen(false)
           sendBack(value)
         })
         .catch(error => {
-          // message.error({ content: 'Failed!', key, duration: 2 })
 
           console.log(error)
           console.log('send again')
@@ -246,9 +308,12 @@ function SearchBar () {
 
     }
     else {
-      message.success({ content: 'Loaded!', key, duration: 2 })
+      // message.success({ content: 'Loaded!', key, duration: 2 })
+
       gotoItemAnalyseNER()
-      openNotificationNER('topRight')
+      setFinalRem('Sorry, the number of reviews is less than 100, and we cannot provide analysis results. Too few reviews may cause deviations in the analysis results.')
+      setOpen1(true)
+      // openNotificationNER('topRight')
     }
   }
 
@@ -256,8 +321,7 @@ function SearchBar () {
     await API.post('Iteration1API', '/Analysis', { body: param })
       .then(response => {
         console.log(response)
-        message.success({ content: 'Loaded!', key, duration: 2 })
-
+        // message.success({ content: 'Loaded!', key, duration: 2 })
         MFO = base64Header + response.MFO
         PosNeg = base64Header + response.PosNeg
         newStarRating = response.newStarRating
@@ -274,60 +338,11 @@ function SearchBar () {
           reliabilityBGC = '#F4BBBB'
           recommendation = 'Low reliability!\nPlease distinguish reviews carefully'
         }
-        openNotification('topRight')
+        // openNotification('topRight')
       })
   }
 
-  const openNotification = placement => {
-    const key = `open${Date.now()}`
-    const btn = (
-      <Button type="primary" size="small" onClick={() => notification.close(key)}>
-        Ok!
-      </Button>
-    )
-    notification.open({
-      message: 'Recommendation',
-      description: recommendation,
-      btn,
-      key,
-      placement,
-      duration: 0
-    })
-  }
 
-  const openNotificationNER = placement => {
-    const key = `open${Date.now()}`
-    const btn = (
-      <Button type="primary" size="small" onClick={() => notification.close(key)}>
-        Ok!
-      </Button>
-    )
-    notification.open({
-      message: 'Insufficient data',
-      description: 'Not enough reviews to analyse',
-      btn,
-      key,
-      placement,
-      duration: 0
-    })
-  }
-
-  const openNotificationFL = placement => {
-    const key = `open${Date.now()}`
-    const btn = (
-      <Button type="primary" size="small" onClick={() => notification.close(key)}>
-        Ok!
-      </Button>
-    )
-    notification.open({
-      message: 'Bad Request',
-      description: 'Not an Amazon URL',
-      btn,
-      key,
-      placement,
-      duration: 0
-    })
-  }
 
   const findAsin = value => {
     var urlArr = value.split('/')
@@ -343,7 +358,7 @@ function SearchBar () {
   }
 
   const gotoItemAnalyse = () => {
-    navigate('/Analysis/ItemAnalyse', {
+    navigate('/PAnalyseResult', {
       state: {
         title: title,
         mainImage: mainImage,
@@ -357,27 +372,36 @@ function SearchBar () {
         MFO: MFO,
         PosNeg: PosNeg,
         recommendation: recommendation,
-        HowItWorks: "We have filtered out suspected unreliable star ratings and re-calculated the first 100 reviews for this product. The Adjusted Rating is the re-calculated result by our website.",
+        HowItWorks: "We have filtered out suspected unreliable star ratings and re-calculated the most recent 100 reviews for this product. The Adjusted Rating is the re-calculated result by our website.",
       }
     }, { replace: true })
+
+    setOpen1(true)
+    setNotiOpen(false)
+    setFinalRem(recommendation)
   }
 
 
 
   const gotoItemAnalyseNER = () => {
-    navigate('/Analysis/ItemAnalyse', {
+    navigate('/PAnalyseResult', {
       state: {
         title: title,
         mainImage: mainImage,
         url: url,
-        reviewsTotal: reviewsTotal,
+        reviewsTotal: 'Total Reviews: ' + reviewsFiltered[0],
         searchAlias: searchAlias,
         previousRating: ProductRating,
         newStarRating: 0,
         reviewReliability: 'Not Enough Reviews',
-        HowItWorks: 'Not enough reviews may lead to inaccuracy result.'
+        recommendation: 'Sorry, the number of reviews is less than 100, and we cannot provide analysis results. Too few reviews may cause deviations in the analysis results.',
+        HowItWorks: "We have filtered out suspected unreliable star ratings and re-calculated the most recent 100 reviews for this product. The Adjusted Rating is the re-calculated result by our website."
       }
     }, { replace: true })
+
+    setOpen1(true)
+    setNotiOpen(false)
+    setFinalRem('Sorry, the number of reviews is less than 100, and we cannot provide analysis results. Too few reviews may cause deviations in the analysis results.')
   }
 
   const sendBack = (value) => {
@@ -405,7 +429,82 @@ function SearchBar () {
   }
 
   return (
-    <Search placeholder="Paste your url here!" onSearch={queryStart} style={{ width: '700px' }} />
+    <>
+      <Stack
+        sx={{ pt: 4 }}
+        direction="row"
+        spacing={2}
+        justifyContent="center"
+      >
+        <Paper
+          component="form"
+          sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Please paste your Amazon url here!"
+            onBlur={e => setPUrl(e.target.value)}
+            style={{ height: '50px', }}
+          />
+          <Divider sx={{ height: 40, m: 0.5 }} orientation="vertical" />
+          <Button onClick={queryStart}>Analyse</Button>
+        </Paper>
+      </Stack>
+
+      <div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={notiOpen}
+          key='noti'
+        >
+          <Alert severity="info" >Hold on, Mr. Server is working hard to fetch data !</Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={failOpen}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            Query failed, please make sure to enter a correct amazon url
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={loadingOpen}
+          autoHideDuration={6000}
+        >
+          <Alert severity="warning" >Analysis is in progress, the result will arrive in a few seconds.</Alert>
+        </Snackbar>
+        <Dialog
+          fullWidth={true}
+          open={open1}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleModalClose}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle>{"Recommendation"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              {fianlRem}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleModalClose}>Confirm!</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    </>
   )
 
 }

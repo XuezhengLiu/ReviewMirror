@@ -32,12 +32,12 @@ p {
 }
 
 .description {
-  padding: 325px 344px 84px 345px;
+  padding: 350px 200px 84px 200px;
   box-sizing: border-box;
   background: url('../Components/fake-reviews.jpeg');
   background-size: 100% 100%;
-  width: 1353px;
-  height: 454px;
+  width: 1440px;
+  height: 780px;
 }
 
 .group-128 {
@@ -53,7 +53,7 @@ p {
   width: 441px;
   height: 54px;
   word-wrap: break-word;
-  margin-bottom: 25px;
+  margin-bottom: 0px;
 }
 
 .txt-842 {
@@ -65,7 +65,7 @@ p {
   width: 662px;
   height: 54px;
   word-wrap: break-word;
-  margin-bottom: 69px;
+  margin-bottom: 50px;
 }
 
 .button {

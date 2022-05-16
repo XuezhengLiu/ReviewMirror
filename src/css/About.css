@@ -1,0 +1,41 @@
+.about {
+  padding-top: 60px;
+  background-color: #f7f7f7;
+}
+
+.abTitle {
+  font-size: 40px;
+  font-family: Georgia;
+  color: #162d5a;
+  font-weight: 500;
+}
+
+.abSubtitle {
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: 400;
+  color: #162d5a;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.intro {
+  padding: 10px 30px 10px 30px;
+  border: 1px solid #c4ddff;
+  border-radius: 5px;
+  background-color: #fff;
+  margin-bottom: 40px;
+}
+
+.introTitle {
+  font-size: 20px;
+  font-family: Times;
+  font-weight: 700;
+  color: #162d5a;
+}
+
+p {
+  font-size: 15px;
+  font-family: Tahoma;
+  font-weight: 350;
+}

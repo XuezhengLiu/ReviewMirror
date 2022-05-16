@@ -1,0 +1,58 @@
+.reviewAnalyse {
+  height: 100vh;
+}
+
+.raRow {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.raContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.h1Title {
+  font-size: 48px;
+  font-family: Play, sans-serif;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 1);
+  text-align: center;
+  width: 463px;
+  height: 42px;
+  word-wrap: break-word;
+  margin-bottom: 40px;
+}
+.pIntroduction {
+  font-size: 18px;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1);
+  text-align: center;
+  width: 479px;
+  word-wrap: break-word;
+  margin-bottom: 42px;
+}
+
+.raTextField {
+  padding: 0 50px;
+}
+
+@media screen and (max-width: 600px) {
+  .raTextField {
+    padding: 0;
+  }
+}
+
+.raButton {
+  display: flex;
+  justify-content: center;
+}
+
+.modal {
+  width: 200px;
+}
