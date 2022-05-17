@@ -1,10 +1,11 @@
 import React from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import PlanetOne from '../images/Planet-ReviewAnalyse.png'
-import PlanetTwo from '../images/Planet-ProductAnalyse.png'
-import PlanetThree from '../images/Planet-Information.png'
-import PlanetFour from '../images/Planet-TestKnowledge.png'
+import PlanetOne from '../images/review-analysis.svg'
+import PlanetTwo from '../images/product-analysis.svg'
+import PlanetThree from '../images/information.svg'
+import PlanetFour from '../images/test-knowledge.svg'
 import { Link } from 'react-router-dom'
 
 
@@ -114,6 +115,37 @@ const ColumnRight = styled.div`
 `
 
 const HeaderPage = () => {
+  const [isLoaded1, setIsLoaded1] = useState(false)
+  const [isLoaded2, setIsLoaded2] = useState(false)
+  const [isLoaded3, setIsLoaded3] = useState(false)
+  const [isLoaded4, setIsLoaded4] = useState(false)
+  const [allLoaded, setAllLoaded] = useState(false)
+
+  const loadingStatus1 = () => {
+    setIsLoaded1(true)
+    if (isLoaded2 === true && isLoaded3 === true && isLoaded4 === true) {
+      setAllLoaded(true)
+    }
+  }
+  const loadingStatus2 = () => {
+    setIsLoaded2(true)
+    if (isLoaded1 === true && isLoaded3 === true && isLoaded4 === true) {
+      setAllLoaded(true)
+    }
+  }
+  const loadingStatus3 = () => {
+    setIsLoaded3(true)
+    if (isLoaded1 === true && isLoaded2 === true && isLoaded4 === true) {
+      setAllLoaded(true)
+    }
+  }
+  const loadingStatus4 = () => {
+    setIsLoaded4(true)
+    if (isLoaded1 === true && isLoaded2 === true && isLoaded3 === true) {
+      setAllLoaded(true)
+    }
+  }
+
 
   const ServerRun = async () => {
 
@@ -140,14 +172,14 @@ const HeaderPage = () => {
           <motion.h1
             variants={fadeLeft}
             initial='hidden'
-            animate={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+            animate={{ opacity: allLoaded ? 1 : 0, x: allLoaded ? 0 : -100, transition: { duration: 1 } }}
           >
             Welcome to Review Mirror
           </motion.h1>
           <motion.p
             variants={fadeLeft}
             initial='hidden'
-            animate={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+            animate={{ opacity: allLoaded ? 1 : 0, x: allLoaded ? 0 : -100, transition: { duration: 1 } }}
           >
             Journey to Truth
           </motion.p>
@@ -156,7 +188,7 @@ const HeaderPage = () => {
               <Button
                 variants={fadeLeft}
                 initial='hidden'
-                animate={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+                animate={{ opacity: allLoaded ? 1 : 0, x: allLoaded ? 0 : -100, transition: { duration: 1 } }}
                 whileHover={{
                   backgroundColor: '#67F6E7',
                   border: 'none',
@@ -179,12 +211,13 @@ const HeaderPage = () => {
               id='childOne'
               src={PlanetTwo}
               alt='planet'
+              onLoad={loadingStatus1}
               whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.9 }}
               drag={true}
               dragConstraints={{ left: 0, right: 250, top: 0, bottom: 50 }}
               initial={{ opacity: 0, x: -100 }}
-              animate={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+              animate={{ opacity: allLoaded ? 1 : 0, x: allLoaded ? 0 : -100, transition: { duration: 1 } }}
             />
           </Link>
           <Link to='/reviewanalyse'>
@@ -192,12 +225,13 @@ const HeaderPage = () => {
               id='childTwo'
               src={PlanetOne}
               alt='planet'
+              onLoad={loadingStatus2}
               whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.6 }}
               drag={true}
               dragConstraints={{ left: 50, right: 0, top: 0, bottom: 50 }}
               initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              animate={{ opacity: allLoaded ? 1 : 0, y: allLoaded ? 0 : 100, transition: { duration: 1 } }}
             />
           </Link>
           <Link to='/Information'>
@@ -205,12 +239,13 @@ const HeaderPage = () => {
               id='childThree'
               src={PlanetThree}
               alt='planet'
+              onLoad={loadingStatus3}
               whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.8 }}
               drag={true}
               dragConstraints={{ left: 0, right: 250, top: 0, bottom: 50 }}
               initial={{ opacity: 0, y: -100 }}
-              animate={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+              animate={{ opacity: allLoaded ? 1 : 0, y: allLoaded ? 0 : -100, transition: { duration: 1 } }}
             />
           </Link>
           <Link to='/knowledgetest'>
@@ -218,12 +253,13 @@ const HeaderPage = () => {
               id='childFour'
               src={PlanetFour}
               alt='planet'
+              onLoad={loadingStatus4}
               whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.9 }}
               drag={true}
               dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
               initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0, transition: { duration: 1 } }}
+              animate={{ opacity: allLoaded ? 1 : 0, x: allLoaded ? 0 : 100, transition: { duration: 1 } }}
             />
           </Link>
         </ColumnRight>

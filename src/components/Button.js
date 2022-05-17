@@ -21,5 +21,6 @@ export const Button = styled(Link)`
 
   &:hover {
     transform: scale(1.05);
+    text-decoration: none;
   }
 `

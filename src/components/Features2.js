@@ -105,7 +105,7 @@ const Features2 = () => {
               <p>
                 Here’s a guide on how to spot fake reviews and a quiz for you to test your own knowledge about fake review distinguishing.
               </p>
-              <Button to='/knowledgetest'>Learn More</Button>
+              <Button to='/knowledgetest'>Test Your Knowledge</Button>
             </Content>
 
           </ColumnRight>
