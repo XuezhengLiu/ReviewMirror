@@ -73,6 +73,23 @@
   white-space: nowrap;
 }
 
+@media screen and (max-width: 300px) {
+  .titleGroup {
+    width: 90vw;
+  }
+  .h3PTitle {
+    font-size: 16px;
+    font-family: Sans-serif;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 1);
+    text-align: left;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 .searchBar {
   height: 100%;
   padding-top: 50px;
@@ -88,16 +105,18 @@
   width: 100vw;
 }
 .columnLeft {
-  margin: 10px;
-  margin-left: -30px;
+  margin: 30px;
+  margin-left: -60px;
   background-color: #ffff;
   padding-right: 30px;
+  margin-bottom: 70px;
 }
 .columnRight {
-  margin: 10px;
+  margin: 30px;
   margin-left: 30px;
   background-color: #ffff;
   padding-left: 30px;
+  padding: 50px;
 }
 
 @media screen and (max-width: 992px) {
