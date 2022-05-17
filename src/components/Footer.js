@@ -116,7 +116,7 @@ const Footer = () => {
               <h4><IoMdArrowRoundDown />View our Product Video Here!</h4>
               <SocialIcons>
                 <a
-                  href='//www.google.com'
+                  href='https://youtu.be/vIdHktHbnig'
                   rel='noopener noreferrer'
                   target='_blank'
                 >
