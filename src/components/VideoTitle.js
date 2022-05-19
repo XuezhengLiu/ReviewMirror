@@ -7,7 +7,7 @@ function VideoTitle () {
   return (
     <div className='hero-container'>
       <video src={video1} autoPlay loop muted />
-      <h1>USEFUL INFORMATION</h1>
+      <h1 className='hero-h1'>USEFUL INFORMATION</h1>
       <p>What are you waiting for?</p>
       <br></br>
       <br></br>

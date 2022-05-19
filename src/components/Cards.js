@@ -10,7 +10,7 @@ import img5 from '../images/5.png'
 function Cards () {
   return (
     <div className='cards'>
-      <h1>Remove Pseudo, Preserve Truth</h1>
+      <h1 className='h1Card'>Remove Pseudo, Preserve Truth</h1>
       <div className='cards__container'>
         <div className='cards__wrapper'>
           <ul className='cards__items'>

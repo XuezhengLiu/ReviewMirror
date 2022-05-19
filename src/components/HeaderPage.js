@@ -243,7 +243,7 @@ const HeaderPage = () => {
               whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
               whileTap={{ scale: 0.8 }}
               drag={true}
-              dragConstraints={{ left: 0, right: 250, top: 0, bottom: 50 }}
+              dragConstraints={{ left: 0, right: 50, top: 0, bottom: 50 }}
               initial={{ opacity: 0, y: -100 }}
               animate={{ opacity: allLoaded ? 1 : 0, y: allLoaded ? 0 : -100, transition: { duration: 1 } }}
             />

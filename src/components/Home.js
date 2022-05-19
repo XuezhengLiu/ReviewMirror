@@ -1,11 +1,20 @@
 import '../css/Home.css'
+import { motion } from 'framer-motion'
+import styled from 'styled-components'
 import SearchBar from './SearchBar'
 import AmazonImg from '../images/amazon.jpg'
 import Typography from '@mui/material/Typography'
 function HomeOld () {
 
+  const Home = styled(motion.div)`
+    padding-top: 70px;
+    width: 100vw;
+    background: #f7f7f7;
+  `
+
   return (
-    <div className='home'>
+    <Home initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}>
       <div className='container homeContainer'>
         <div className='row homeRow'>
           <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 content'>
@@ -39,12 +48,12 @@ function HomeOld () {
               fontSize='100%'
               fontWeight='100'
               paragraph>
-              Currently we support urls from: <img src={AmazonImg} alt="" width='75px' />
+              Currently we support urls from: <a href='https://www.amazon.com.au/' target={'_blank'} rel="noreferrer"><img src={AmazonImg} alt="" width='75px' /></a>
             </Typography>
           </div>
         </div>
       </div>
-    </div>
+    </Home>
   )
 }
 

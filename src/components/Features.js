@@ -94,7 +94,7 @@ const Features = () => {
               <p>
                 There are a series of articles and videos can help you to understand more about fake reviews problem.
               </p>
-              <Button to='/Information'>View More</Button>
+              <Button to='/Information'>Get More Details</Button>
             </Content>
           </ColumnLeft>
           <ColumnRight>

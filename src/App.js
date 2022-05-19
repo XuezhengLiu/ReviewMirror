@@ -10,6 +10,7 @@ import Home from './components/Home'
 import ProductAnalyse from './Analysis/ProductAnalyse'
 import GlobalStyle from './globalStyles'
 import Information from './pages/Information'
+import ScrollToTop from './components/ScrollToTop'
 
 import Aos from 'aos'
 import 'aos/dist/aos.css'
@@ -38,16 +39,18 @@ function App () {
       <BrowserRouter>
         <Navbar toggle={toggle} />
         <Dropdown isOpen={isOpen} toggle={toggle} />
-        <Routes>
-          <Route path='' element={<Index />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/productanalyse' element={<Home />} />
-          <Route path='reviewanalyse' element={<ReviewAnalyse />} />
-          <Route path='/knowledgetest' element={<Quiz />} />
-          <Route path='/MainFeatures' element={<MainFeatures />} />
-          <Route path='/PAnalyseResult' element={<ProductAnalyse />} />
-          <Route path='/Information' element={<Information />} />
-        </Routes>
+        <ScrollToTop>
+          <Routes>
+            <Route path='' element={<Index />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/productanalyse' element={<Home />} />
+            <Route path='reviewanalyse' element={<ReviewAnalyse />} />
+            <Route path='/knowledgetest' element={<Quiz />} />
+            <Route path='/MainFeatures' element={<MainFeatures />} />
+            <Route path='/PAnalyseResult' element={<ProductAnalyse />} />
+            <Route path='/Information' element={<Information />} />
+          </Routes>
+        </ScrollToTop>
         <Footer />
       </BrowserRouter>
     </>

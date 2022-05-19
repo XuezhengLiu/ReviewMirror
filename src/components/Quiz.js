@@ -22,6 +22,9 @@ import { useState } from 'react'
 import Share from 'social-share-react'
 import { API } from 'aws-amplify'
 
+import { motion } from 'framer-motion'
+import styled from 'styled-components'
+
 
 function Quiz () {
   const [btnState, setBtnState] = useState(true)
@@ -270,7 +273,7 @@ function Quiz () {
                         Tips 3
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Take extra care buying unknown brands. If you don't recognize a brand, check online to see if it has a legitimate looking website, with clear contact details so you can get in touch if anything goes wrong. You could even try calling or emailing the seller with a question, to see how quickly they respond.
+                        Take extra care buying unknown brands. If you don't recognize a brand, check online to see if it has a legitimate looking website, with clear contact details so you can get in touch if anything goes wrong.
                       </Typography>
                     </CardContent>
                   </CardActionArea>
@@ -422,7 +425,7 @@ function Quiz () {
             <Button outlined onClick={showTips}>Show Tips</Button>
           </div>
         )
-      default: break
+      default:
     }
 
   }
@@ -444,8 +447,14 @@ function Quiz () {
     showAnswer()
   }
 
+  const Quiz = styled(motion.div)`
+  padding-top: 60px;
+  background-color: #f7f7f7;
+  `
+
   return (
-    <div className='quiz'>
+    <Quiz initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}>
       <div className='container'>
         <div className="row">
           <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12' style={{ marginBottom: '40px' }}>
@@ -456,10 +465,6 @@ function Quiz () {
                   btnState ? 'Start Quiz' : 'Try Again'
                 }
               </Button>
-              <Share
-                url='https://www.reviewmirror.ga'
-                title=''
-                sites={['facebook', 'twitter', 'qzone', 'weibo', 'wechat']}></Share>
             </div>
             <Divider textAlign="right">Let's begin</Divider>
           </div>
@@ -468,9 +473,19 @@ function Quiz () {
             {startQuiz()}
           </div>
           <div className='col-xs-1 col-sm-1 col-md-2 col-lg-2'></div>
+          <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12' style={{ marginBottom: '40px' }}>
+            <Divider textAlign="left">Please share if you like our site</Divider>
+            <div className='share'>
+              <Share
+                url='https://www.reviewmirror.ga'
+                title=''
+                sites={['facebook', 'twitter', 'qzone', 'weibo']}></Share>
+            </div>
+
+          </div>
         </div>
       </div>
-    </div>
+    </Quiz>
   )
 }
 export default Quiz

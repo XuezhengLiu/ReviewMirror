@@ -2,6 +2,8 @@ import * as React from 'react'
 import { useState } from 'react'
 import { API } from 'aws-amplify'
 
+import { motion } from 'framer-motion'
+import styled from 'styled-components'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Dialog from '@mui/material/Dialog'
@@ -138,69 +140,72 @@ function ReviewAnalyse () {
       })
   }
 
-  return (
-    <>
-      <div className='reviewAnalyse' onLoad={ServerRun}>
-        <div className="container">
-          <div className="row raRow">
-            <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 raContent'>
-              <h1 className='h1Title'>ANALYZE A REVIEW</h1>
-            </div>
-            <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 raContent'>
-              <p className='pIntroduction'>Find out if this review was human written or computer generated</p>
-            </div>
-            <div className='col-xs-9 col-sm-8 col-md-6 col-lg-5 raTextField'>
-              <TextField
-                id="filled-multiline-static"
-                label="Paste Your Review Here!"
-                multiline
-                rows={10}
-                fullWidth={true}
-                variant="filled"
-                onBlur={e => setReview(e.target.value)}
-              />
-            </div>
-            <div className='col-xs-12 col-sm-12 col-md-4 col-lg-4 raButton'>
-              <Button variant="outlined" onClick={GetResult}>Submit</Button>
-            </div>
-            <Dialog
-              fullWidth={true}
-              open={open}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleClose}
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogTitle>{result}</DialogTitle>
-              <Divider />
-              <DialogContent fullwidth={true}>
+  const ReviewAnalyse = styled(motion.div)`
+    height: 100vh;
+  `
 
-                {isEmpty ?
-                  <h2>Please enter a review!</h2>
-                  :
-                  <div id='main' style={{ width: '100%', height: '200px' }}></div>}
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Ok!</Button>
-              </DialogActions>
-            </Dialog>
-            <div>
-              <Snackbar
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'center',
-                }}
-                open={notiOpen}
-                onClose={handleClose}
-                key='noti'
-              >
-                <Alert severity="info" >Hold on, Mr. Server is working hard to analyze !</Alert>
-              </Snackbar>
-            </div>
+  return (
+    <ReviewAnalyse onLoad={ServerRun} initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}>
+      <div className="container">
+        <div className="row raRow">
+          <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 raContent'>
+            <h1 className='h1Title'>ANALYZE A REVIEW</h1>
+          </div>
+          <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 raContent'>
+            <p className='pIntroduction'>Find out if this review was human written or computer generated</p>
+          </div>
+          <div className='col-xs-9 col-sm-8 col-md-6 col-lg-5 raTextField'>
+            <TextField
+              id="filled-multiline-static"
+              label="Paste Your Review Here!"
+              multiline
+              rows={10}
+              fullWidth={true}
+              variant="filled"
+              onBlur={e => setReview(e.target.value)}
+            />
+          </div>
+          <div className='col-xs-12 col-sm-12 col-md-4 col-lg-4 raButton'>
+            <Button variant="outlined" onClick={GetResult}>Submit</Button>
+          </div>
+          <Dialog
+            fullWidth={true}
+            open={open}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleClose}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle>{result}</DialogTitle>
+            <Divider />
+            <DialogContent fullwidth={true}>
+
+              {isEmpty ?
+                <h2>Please enter a review!</h2>
+                :
+                <div id='main' style={{ width: '100%', height: '200px' }}></div>}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Ok!</Button>
+            </DialogActions>
+          </Dialog>
+          <div>
+            <Snackbar
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+              open={notiOpen}
+              onClose={handleClose}
+              key='noti'
+            >
+              <Alert severity="info" >Hold on, Mr. Server is working hard to analyze !</Alert>
+            </Snackbar>
           </div>
         </div>
       </div>
-    </>
+    </ReviewAnalyse>
   )
 
 }
