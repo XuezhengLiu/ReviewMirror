@@ -14,6 +14,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Slide from '@mui/material/Slide'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import { API } from 'aws-amplify'
 import { useState } from 'react'
@@ -460,7 +461,7 @@ function SearchBar () {
           open={notiOpen}
           key='noti'
         >
-          <Alert severity="info" >Hold on, Mr. Server is working hard to fetch data !</Alert>
+          <Alert severity="info" icon={false} ><CircularProgress size='15px' color='error' /> &nbsp;&nbsp;&nbsp;Hold on, Mr. Server is working hard to fetch data !</Alert>
         </Snackbar>
         <Snackbar
           anchorOrigin={{
@@ -483,7 +484,7 @@ function SearchBar () {
           open={loadingOpen}
           autoHideDuration={6000}
         >
-          <Alert severity="warning" >Analysis is in progress, the result will arrive in a few seconds.</Alert>
+          <Alert severity="warning" icon={false} ><CircularProgress size='15px' color='error' /> &nbsp;&nbsp;&nbsp;Analysis is in progress, the result will arrive in a few seconds.</Alert>
         </Snackbar>
         <Dialog
           fullWidth={true}

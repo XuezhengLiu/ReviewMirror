@@ -104,7 +104,7 @@ const Listings = () => {
             data-aos-anchor-placement='center bottom'
           >
             <Image src={HomeOne} alt='product analyse' />
-            <h2>Product Analyse</h2>
+            <h2>Product Analyser</h2>
             <InfoLink to='/productanalyse'>
               <p>View Details</p>
               <Arrow />
@@ -126,7 +126,7 @@ const Listings = () => {
                 }
               `}
             />
-            <h2>Review Analyse</h2>
+            <h2>Review Analyser</h2>
             <InfoLink to='/reviewanalyse'>
               <p>View Details</p>
               <Arrow />

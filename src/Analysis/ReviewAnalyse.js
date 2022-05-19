@@ -2,8 +2,6 @@ import * as React from 'react'
 import { useState } from 'react'
 import { API } from 'aws-amplify'
 
-import { motion } from 'framer-motion'
-import styled from 'styled-components'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Dialog from '@mui/material/Dialog'
@@ -14,6 +12,7 @@ import Slide from '@mui/material/Slide'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert from '@mui/material/Alert'
 import Divider from '@mui/material/Divider'
+import CircularProgress from '@mui/material/CircularProgress'
 
 import * as echarts from 'echarts'
 
@@ -140,13 +139,8 @@ function ReviewAnalyse () {
       })
   }
 
-  const ReviewAnalyse = styled(motion.div)`
-    height: 100vh;
-  `
-
   return (
-    <ReviewAnalyse onLoad={ServerRun} initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 1 } }}>
+    <div className="revoewAnalyse" onLoad={ServerRun}>
       <div className="container">
         <div className="row raRow">
           <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 raContent'>
@@ -200,12 +194,12 @@ function ReviewAnalyse () {
               onClose={handleClose}
               key='noti'
             >
-              <Alert severity="info" >Hold on, Mr. Server is working hard to analyze !</Alert>
+              <Alert severity="info" icon={false}><CircularProgress size='15px' color='error' /> &nbsp;&nbsp;&nbsp;Hold on, Mr. Server is working hard to analyze !</Alert>
             </Snackbar>
           </div>
         </div>
       </div>
-    </ReviewAnalyse>
+    </div>
   )
 
 }

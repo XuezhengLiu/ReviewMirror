@@ -22,8 +22,7 @@ import { useState } from 'react'
 import Share from 'social-share-react'
 import { API } from 'aws-amplify'
 
-import { motion } from 'framer-motion'
-import styled from 'styled-components'
+
 
 
 function Quiz () {
@@ -319,8 +318,16 @@ function Quiz () {
                     </CardContent>
                   </CardActionArea>
                 </Card>
+
               </div>
 
+            </div>
+            <div className='header'>
+              <Button variant="contained" onClick={showQuiz}>
+                {
+                  btnState ? 'Start Quiz' : 'Try Again'
+                }
+              </Button>
             </div>
           </>
         )
@@ -421,8 +428,15 @@ function Quiz () {
             <Divider orientation="left"></Divider>
             <br></br>
             <br></br>
-            <Button outlined onClick={submit}>Submit</Button>&nbsp;&nbsp;&nbsp;
-            <Button outlined onClick={showTips}>Show Tips</Button>
+            <div className="fBtnGroup">
+              <Button variant="contained" onClick={submit}>Submit</Button>&nbsp;&nbsp;&nbsp;
+              <Button outlined onClick={showTips}>Show Tips</Button>&nbsp;&nbsp;&nbsp;
+              <Button outlined onClick={showQuiz}>
+                {
+                  btnState ? 'Start Quiz' : 'Try Again'
+                }
+              </Button>
+            </div>
           </div>
         )
       default:
@@ -447,26 +461,16 @@ function Quiz () {
     showAnswer()
   }
 
-  const Quiz = styled(motion.div)`
-  padding-top: 60px;
-  background-color: #f7f7f7;
-  `
-
   return (
-    <Quiz initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 1 } }}>
+    <div className='quiz'>
       <div className='container'>
         <div className="row">
           <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12' style={{ marginBottom: '40px' }}>
             <h1 className='qzTitle'>Test Your Knowledge</h1>
-            <div className='header'>
-              <Button variant="contained" onClick={showQuiz}>
-                {
-                  btnState ? 'Start Quiz' : 'Try Again'
-                }
-              </Button>
-            </div>
-            <Divider textAlign="right">Let's begin</Divider>
+            <h3 className='qzSubtitle'>Accurately spotting misleading reviews is becoming more and more important as online shopping grows. Go for higher scores and compete with your friends!</h3>
+
+            <Divider textAlign="right">Start Test Now!</Divider>
+
           </div>
           <div className='col-xs-1 col-sm-1 col-md-2 col-lg-2'></div>
           <div className='col-xs-10 col-sm-10 col-md-8 col-lg-8 qzbody'>
@@ -485,7 +489,7 @@ function Quiz () {
           </div>
         </div>
       </div>
-    </Quiz>
+    </div>
   )
 }
 export default Quiz

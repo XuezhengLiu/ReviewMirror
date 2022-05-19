@@ -15,8 +15,8 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Slide from '@mui/material/Slide'
 
 import SearchBar from '../components/SearchBar'
-import { useLocation } from 'react-router-dom'
 
+import { useLocation } from 'react-router-dom'
 import { API } from 'aws-amplify'
 import { useState } from 'react'
 
@@ -121,11 +121,16 @@ function ProductAnalyse () {
                     <h5 className='paH5'>Original Rating</h5>
                   </Tooltip>
                   <Rating name="half-rating-read" size="large" value={location.state.previousRating} precision={0.5} readOnly />
-                  <div style={{ marginTop: '20px' }}>
+                  <div style={{ marginTop: '20px', marginBottom: '20px' }}>
                     <Tooltip title={location.state.HowItWorks} placement="top" arrow>
                       <span style={{ cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>How it works <QuestionMarkSharpIcon></QuestionMarkSharpIcon></span>
                     </Tooltip>
                   </div>
+
+                  <span style={{ cursor: 'pointer', fontFamily: 'Poppins, sans-serif', marginTop: '20px', marginBottom: '20px', textAlign: 'center' }}>Complain to the government about fake reviews</span>
+                  <a href='https://www.accc.gov.au/consumers/complaints-problems/make-a-consumer-complaint' target={'_blank'} rel="noreferrer">
+                    <Button variant="contained">Make a Report!</Button>
+                  </a>
                 </div>
               </div>
             </div>

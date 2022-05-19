@@ -1,7 +1,21 @@
 .Infographic {
   background-color: #f7f7f7;
-  height: 150vh;
 }
 .graphic {
   height: 75vh;
+}
+.graphicPie {
+  height: 50vh;
+  padding-top: 50px;
+}
+.pieTitle {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pieContainerLeft {
+  height: 40vh;
+  border-right: 1px gray solid;
+  border-bottom: 1px gray solid;
 }

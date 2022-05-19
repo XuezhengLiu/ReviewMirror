@@ -126,12 +126,10 @@ const Footer = () => {
             </FooterBottom>
           </div>
           <FooterInfo>
+            <br></br>
+            <br></br>
             <h4>Created by Team SLYNG</h4>
-            Yuhong Ye<br></br>
-            Xuezheng Liu<br></br>
-            Nimish Koli<br></br>
-            Jingshu Gu<br></br>
-            Junhao Su<br></br>
+            <h4>Copyright © 2022 Team SLYNG. All rights reserved.</h4>
           </FooterInfo>
         </FooterTop>
       </Container>

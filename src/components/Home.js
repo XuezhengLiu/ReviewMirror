@@ -14,7 +14,7 @@ function HomeOld () {
 
   return (
     <Home initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 1 } }}>
+      animate={{ opacity: 1, transition: { duration: 1 } }} >
       <div className='container homeContainer'>
         <div className='row homeRow'>
           <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 content'>

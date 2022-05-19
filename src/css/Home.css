@@ -25,6 +25,12 @@
   justify-content: center;
 }
 
+@media screen and (max-width: 300px) {
+  .homeContainer {
+    height: 130vh;
+  }
+}
+
 .homeRow {
   display: flex;
   justify-content: center;
