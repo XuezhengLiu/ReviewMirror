@@ -272,7 +272,7 @@ function Quiz () {
                         Tips 3
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Take extra care buying unknown brands. If you don't recognize a brand, check online to see if it has a legitimate looking website, with clear contact details so you can get in touch if anything goes wrong.
+                        - Take extra care buying unknown brands. If you don't recognize a brand, check online to see if it has a legitimate looking website, with clear contact details so you can get in touch if anything goes wrong.
                       </Typography>
                     </CardContent>
                   </CardActionArea>
@@ -292,7 +292,7 @@ function Quiz () {
                         Tips 4
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Ignore the five-star ratings. Check the four, three and two-star reviews and it’s likely you’ll be getting more honest opinions.
+                        - Ignore the five-star ratings. Check the four, three and two-star reviews and it’s likely you’ll be getting more honest opinions.
                       </Typography>
                     </CardContent>
                   </CardActionArea>

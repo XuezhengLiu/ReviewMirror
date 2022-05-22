@@ -27,7 +27,7 @@ function HomeOld () {
               color="text.primary"
               gutterBottom
             >
-              Analyze a URL
+              Analyse a URL
             </Typography>
             <Typography variant="h5"
               align="center"
@@ -35,7 +35,7 @@ function HomeOld () {
               fontSize='200%'
               fontWeight='200'
               paragraph>
-              You are about to analyze a product or business for its reviews. Insert a URL of one of our supported websites in the search bar below to start the analysis.
+              You are about to analyse a product or business for its reviews. Insert a URL of one of our supported websites in the search bar below to start the analysis.
             </Typography>
             <SearchBar></SearchBar>
             <br></br>

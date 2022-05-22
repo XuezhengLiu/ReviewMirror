@@ -103,9 +103,9 @@ const Features2 = () => {
                 Ever relied on an online review to make a purchasing decision? How do you know it was actually genuine?
               </p>
               <p>
-                Here’s a guide on how to spot fake reviews and a quiz for you to test your own knowledge about fake review distinguishing.
+                Here are some tips on how to spot fake reviews and a quiz to test your ability to distinguish fake reviews.
               </p>
-              <Button to='/knowledgetest'>Star Quiz Now</Button>
+              <Button to='/knowledgetest'>Start Quiz Now</Button>
             </Content>
 
           </ColumnRight>

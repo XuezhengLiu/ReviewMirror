@@ -113,7 +113,7 @@ const Footer = () => {
             </Quote>
 
             <FooterBottom>
-              <h4><IoMdArrowRoundDown />View our Product Video Here!</h4>
+              <h4><IoMdArrowRoundDown />View our product video here!</h4>
               <SocialIcons>
                 <a
                   href='https://youtu.be/vIdHktHbnig'

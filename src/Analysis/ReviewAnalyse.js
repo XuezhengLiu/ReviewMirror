@@ -144,10 +144,10 @@ function ReviewAnalyse () {
       <div className="container">
         <div className="row raRow">
           <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 raContent'>
-            <h1 className='h1Title'>ANALYZE A REVIEW</h1>
+            <h1 className='h1Title'>ANALYSE A REVIEW</h1>
           </div>
           <div className='col-xs-12 col-sm-12 col-md-8 col-lg-8 raContent'>
-            <p className='pIntroduction'>Find out if this review was human written or computer generated</p>
+            <p className='pIntroduction'>Find out if this review was human written or computer-generated</p>
           </div>
           <div className='col-xs-9 col-sm-8 col-md-6 col-lg-5 raTextField'>
             <TextField
@@ -194,7 +194,7 @@ function ReviewAnalyse () {
               onClose={handleClose}
               key='noti'
             >
-              <Alert severity="info" icon={false}><CircularProgress size='15px' color='error' /> &nbsp;&nbsp;&nbsp;Hold on, Mr. Server is working hard to analyze !</Alert>
+              <Alert severity="info" icon={false} ><CircularProgress size='15px' color='error' /> &nbsp;&nbsp;&nbsp;Hold on, Mr. Server is working hard to analyze !</Alert>
             </Snackbar>
           </div>
         </div>

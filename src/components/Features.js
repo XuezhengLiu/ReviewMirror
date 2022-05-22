@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Button'
-import ImageOne from '../images/Information.png'
+import ImageOne from '../images/information.png'
 
 const Section = styled.section`
   background: #000d1a;
@@ -89,10 +89,10 @@ const Features = () => {
             >
               <h1>Information</h1>
               <p>
-                Online reviews heavily influence purchase decisions, but not every review is real. The problem of fake reviews can affect companies of all types and sizes.
+                Online reviews heavily influence purchase decisions. However, not every single review is genuine. The problem of fake reviews can affect consumers or companies to lose their properties or reputation.
               </p>
               <p>
-                There are a series of articles and videos can help you to understand more about fake reviews problem.
+                There are a series of articles and videos that can help you to understand more about fake review problems.
               </p>
               <Button to='/Information'>Get More Details</Button>
             </Content>

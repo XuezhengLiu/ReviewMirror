@@ -58,7 +58,7 @@ function SearchBar () {
   var url = ''
   var title = ''
   var mainImage = ''
-  var reviewsTotal = ''
+  var ratingsTotal = ''
   var searchAlias = ''
   var newStarRating = 0
   var previousRating = 0
@@ -136,16 +136,22 @@ function SearchBar () {
       .then(response => {
         console.log(response)
         if (response.data["request_info"]["success"] === true) {
-          // print the JSON response from Rainforest API
-          title = response.data['product']['title']
-          if (typeof (response.data['product']['main_image']) !== 'undefined') {
-            mainImage = response.data['product']['main_image']['link']
-          }
+          if (typeof (response.data['product']) !== 'undefined') {
 
-          url = response.data['request_parameters']['url']
-          reviewsTotal = 'Total Ratings: ' + response.data['product']['reviews_total']
-          searchAlias = 'Categories: ' + response.data['product']['search_alias']['title']
-          ProductRating = response.data['product']['rating']
+            // print the JSON response from Rainforest API
+            title = response.data['product']['title']
+            if (typeof (response.data['product']['main_image']) !== 'undefined') {
+              mainImage = response.data['product']['main_image']['link']
+            }
+
+            url = response.data['request_parameters']['url']
+            ratingsTotal = 'Total Ratings: ' + response.data['product']['reviews_total']
+            searchAlias = 'Categories: ' + response.data['product']['search_alias']['title']
+            ProductRating = response.data['product']['rating']
+          }
+          else {
+            url = response.data['request_parameters']['url']
+          }
           GetResult(value)
         }
         else {
@@ -176,7 +182,7 @@ function SearchBar () {
         output: "json",
         sort_by: "most_recent",
         global_reviews: "true",
-        language: "en_GB",
+        language: "en_US",
         page: i.toString()
       }
 
@@ -187,8 +193,17 @@ function SearchBar () {
             var asin = response.data["request_parameters"]["asin"]
             var rating = response.data['summary']['rating']
             var reviewsTotal = response.data['summary']['reviews_total']
+            if (title === '') {
+              title = response.data['product']['title']
+            }
             if (mainImage === '') {
               mainImage = response.data['product']['image']
+            }
+            if (ratingsTotal === '') {
+              ratingsTotal = 'Total Ratings: ' + response.data['summary']['ratings_total']
+            }
+            if (ProductRating === 0) {
+              ProductRating = response.data['summary']['rating']
             }
             for (let j = 0; j < 10; j++) {
               var reviewId = response.data['reviews'][j]['id']
@@ -300,9 +315,8 @@ function SearchBar () {
 
           console.log(error)
           console.log('send again')
-          sendAgain(param)
-          gotoItemAnalyse()
-          sendBack(value)
+          sendAgain(param, value, 0)
+
         })
 
 
@@ -318,7 +332,9 @@ function SearchBar () {
     }
   }
 
-  const sendAgain = async (param) => {
+  const sendAgain = async (param, value, times) => {
+    console.log(param)
+    console.log(value)
     await API.post('Iteration1API', '/Analysis', { body: param })
       .then(response => {
         console.log(response)
@@ -340,6 +356,16 @@ function SearchBar () {
           recommendation = 'Low reliability!\nPlease distinguish reviews carefully'
         }
         // openNotification('topRight')
+        gotoItemAnalyse()
+        sendBack(value)
+      })
+      .catch(error => {
+        times = times + 1
+        if (times < 3) {
+          console.log(error)
+          console.log('send again')
+          sendAgain(param, value, times)
+        }
       })
   }
 
@@ -364,7 +390,7 @@ function SearchBar () {
         title: title,
         mainImage: mainImage,
         url: url,
-        reviewsTotal: reviewsTotal,
+        reviewsTotal: ratingsTotal,
         searchAlias: searchAlias,
         newStarRating: newStarRating,
         previousRating: previousRating,
@@ -410,7 +436,7 @@ function SearchBar () {
       info: '{ "title": "' + title +
         '", "mainImage": "' + mainImage +
         '", "url": "' + url +
-        '", "reviewsTotal": "' + reviewsTotal +
+        '", "reviewsTotal": "' + ratingsTotal +
         '", "searchAlias": "' + searchAlias +
         '", "newStarRating": "' + newStarRating +
         '", "previousRating": "' + previousRating +
@@ -429,6 +455,12 @@ function SearchBar () {
       })
   }
 
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      queryStart()
+    }
+  }
+
   return (
     <>
       <Stack
@@ -436,19 +468,20 @@ function SearchBar () {
         direction="row"
         spacing={2}
         justifyContent="center"
+        onChange={e => setPUrl(e.target.value)}
+        onKeyDown={(e) => onKeyDown(e)}
       >
         <Paper
-          component="form"
           sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%' }}
         >
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Please paste your Amazon url here!"
-            onBlur={e => setPUrl(e.target.value)}
+
             style={{ height: '50px', }}
           />
           <Divider sx={{ height: 40, m: 0.5 }} orientation="vertical" />
-          <Button onClick={queryStart}>Analyse</Button>
+          <Button onClick={queryStart} >Analyse</Button>
         </Paper>
       </Stack>
 
@@ -501,7 +534,7 @@ function SearchBar () {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleModalClose}>Confirm!</Button>
+            <Button onClick={handleModalClose}>Ok!</Button>
           </DialogActions>
         </Dialog>
       </div>

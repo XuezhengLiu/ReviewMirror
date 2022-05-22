@@ -14,9 +14,9 @@ function About () {
           <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 intro'>
             <div className="row abRow">
               <div className='col-xs-12 col-sm-12 col-md-5 col-lg-4' >
-                <h3 className='introTitle'>Analyse Single Revew:</h3>
+                <h3 className='introTitle'>Analyse Single Review:</h3>
                 <div style={{ width: '100%', padding: '10px' }}>
-                  <p> Want to analyze an individual review? Paste it into Analyze Review. We'll show if that's a computer-generated review.</p>
+                  <p> Want to analyse an individual review? Paste it into Review Analyser. We'll show if that's a computer-generated review.</p>
                 </div>
               </div>
               <div className='col-xs-12 col-sm-12 col-md-7 col-lg-8' >
@@ -29,7 +29,7 @@ function About () {
           <div className='col-xs-12 col-sm-12 col-md-12 col-lg-12 intro'>
             <div className="row abRow">
               <div className='col-xs-12 col-sm-12 col-md-5 col-lg-4' >
-                <h3 className='introTitle'>Analyse a Product Url:</h3>
+                <h3 className='introTitle'>Analyse a Product URL:</h3>
                 <div style={{ width: '100%', padding: '10px' }}>
                   <p> Copy and paste an Amazon product URL into our analyser bar and hit the analyse button. That's it; we'll take care of the rest.</p>
                 </div>

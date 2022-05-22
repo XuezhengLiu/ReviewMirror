@@ -151,7 +151,7 @@ function ProductAnalyse () {
                 <div className='aTitle'>
                   <h2>Review Sentiments</h2>
                 </div>
-                <span className='pSpan'>This chart shows the most frequently used positive and negative words in product reviews. Help you to estimate other customers satisfaction.</span>
+                <span className='pSpan'>This chart shows the most frequently used <span style={{ color: 'green', fontWeight: 'bold' }}>positive</span> and <span style={{ color: 'red', fontWeight: 'bold' }}>negative</span> words in product reviews. Help you to estimate other customers satisfaction.</span>
                 <br></br>
                 <br></br>
                 <Divider />
@@ -178,7 +178,7 @@ function ProductAnalyse () {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Confirm!</Button>
+          <Button onClick={handleClose}>Ok!</Button>
         </DialogActions>
       </Dialog>
     </div>
